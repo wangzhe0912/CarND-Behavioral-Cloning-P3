@@ -40,17 +40,14 @@ model.add(Lambda(lambda x: x / 255.0, input_shape=(160, 320, 3)))
 
 model.add(Convolution2D(6, 5, 5, border_mode='same'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
 model.add(Convolution2D(16, 5, 5, border_mode='same'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
 model.add(Convolution2D(36, 5, 5, border_mode='same'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
 model.add(Flatten())
