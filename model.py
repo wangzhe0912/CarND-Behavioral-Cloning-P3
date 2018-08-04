@@ -166,6 +166,6 @@ model.compile(loss="mse", optimizer='adam')
 
 model.summary()
 
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=20)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=10)
 
 model.save("model.h5")
