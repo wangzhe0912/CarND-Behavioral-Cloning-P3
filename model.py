@@ -23,13 +23,15 @@ for line in lines:
     if not line_num:
         line_num += 1
         continue
+    measurement = float(line[3])
+    if not measurement:
+        continue
     source_path = line[0]
     filename = './data/' + source_path
     image = cv2.imread(filename)
     # crop the image
     image = image[55:135, :, :]
     images.append(image)
-    measurement = float(line[3])
     measurements.append(measurement)
     reverse_image = cv2.flip(image, 1)
     # plt.imshow(reverse_image)
