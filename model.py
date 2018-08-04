@@ -99,6 +99,35 @@ for line in lines:
     reverse_measurement = -1 * float(line[3])
     measurements.append(reverse_measurement)
 
+    
+# 读取录制文件3
+lines = []
+with open('./examples3/driving_log.csv') as csv_file:
+    reader = csv.reader(csv_file)
+    for line in reader:
+        lines.append(line)
+
+for line in lines:
+    if not line_num:
+        line_num += 1
+        continue
+    measurement = float(line[3])
+    if not measurement:
+        continue
+    source_path = line[0].split("\\")[-1]
+    filename = './examples3/IMG/' + source_path
+    image = cv2.imread(filename)
+    # crop the image
+    image = image[55:135, :, :]
+    images.append(image)
+    measurements.append(measurement)
+    reverse_image = cv2.flip(image, 1)
+    # plt.imshow(reverse_image)
+    # plt.show()
+    images.append(reverse_image)
+    reverse_measurement = -1 * float(line[3])
+    measurements.append(reverse_measurement)
+    
 print(len(images))
 print(len(measurements))
     
@@ -125,8 +154,12 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Activation('relu'))
 # model.add(Dropout(0.5))
 
+model.add(Convolution2D(128, 5, 5, border_mode='same'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Activation('relu'))
+
 model.add(Flatten())
-model.add(Dense(128))
+model.add(Dense(256))
 model.add(Dense(32))
 model.add(Dense(1))
 model.compile(loss="mse", optimizer='adam')
